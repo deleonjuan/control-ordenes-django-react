@@ -25,7 +25,7 @@ SECRET_KEY = '6!3=434ty4npz8(qnil-ww%%ankrau%xhg2-&@yj_5r4oa8au$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'api.apps.ApiConfig',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,16 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'api.Seller'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 ROOT_URLCONF = 'control.urls'
 

@@ -1,9 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from .serializers import SellerSerializer, ProductSerializer, SaleSerializer
 from .models import Seller, Product, Sale
 
 class SellerViewSet(viewsets.ModelViewSet):
     queryset = Seller.objects.all().order_by('id')
+    permission_classes = [
+        permissions.AllowAny
+    ]
     serializer_class = SellerSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
