@@ -9,7 +9,7 @@ class Seller(models.Model):
         return self.name
 
 class Product(models.Model):
-    #seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='product_seller')
+    # seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='product_seller')
     seller = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
     description = models.TextField()
