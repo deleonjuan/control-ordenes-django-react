@@ -3,7 +3,7 @@ from .serializers import SellerSerializer, ProductSerializer, SaleSerializer
 from .models import Seller, Product, Sale
 
 class SellerViewSet(viewsets.ModelViewSet):
-    queryset = Seller.objects.all().order_by('name')
+    queryset = Seller.objects.all().order_by('id')
     serializer_class = SellerSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):

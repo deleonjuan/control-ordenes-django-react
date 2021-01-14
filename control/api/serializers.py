@@ -4,14 +4,13 @@ from .models import Seller, Product, Sale
 class SellerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Seller
-        fields = ('name', 'nick')
+        fields = '__all__'#('name', 'username')
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    seller = SellerSerializer(required=False)
-
+    # seller = SellerSerializer(required=False)
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('id', 'name', 'description', 'price', 'category')
 
 class SaleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
