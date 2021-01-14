@@ -1,47 +1,59 @@
 import React, { Component, component, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
-import { GetProducts } from '../../reducers/products'
-
-
-// const Products = props => {
-
-//     // const [products, setProducts] = useState(propTypes.array.isRequired)
-
-//     static propTypes = {
-//         products: propTypes.array.isRequired
-//     }
-//     // useEffect(() => {
-//     //     GetProducts()
-//     //     // console.log(products);
-//     // }, [])
-
-//     return (
-//         <div>
-//             <h1>Productos</h1>
-//         </div>
-//     )
-// }
+import { GetProducts, DeleteProduct } from '../../reducers/products'
 
 export class Products extends Component {
 
     static propTypes = {
-        products: propTypes.array.isRequired
+        products: propTypes.array.isRequired,
+        GetProducts: propTypes.func.isRequired,
+        DeleteProduct: propTypes.func.isRequired
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.GetProducts()
     }
 
     render() {
         return (
             <div>
-                <h1>Productos</h1>
-                {
-                    this.props.products.map(pr => (
-                        <label>{ pr.name} </label>
-                    ))
-                }
+                <h1>Lista de productos</h1>
+
+                <table className="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Descripcio</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.props.products.map(product => (
+                                <tr key={product.id}>
+                                    <td>{product.id}</td>
+                                    <td>{product.name}</td>
+                                    <td>{product.price}</td>
+                                    <td>{product.description}</td>
+                                    <td>
+                                        <button
+                                            onClick={this.props.DeleteProduct.bind
+                                            (this, product.id)}
+                                            className="btn btn-danger btn-sm">
+                                            Eliminar
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                            ))
+                        }
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -51,4 +63,4 @@ const mapStateToProps = state => ({
     products: state.products.products
 })
 
-export default connect(mapStateToProps, { GetProducts })(Products)
+export default connect(mapStateToProps, { GetProducts, DeleteProduct })(Products)

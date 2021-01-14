@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import Header from './layouts/Header';
 import Products from './products/products'
+import FormProducts from './products/form'
 
 import { Provider } from 'react-redux'
 import store from '../store'
@@ -18,6 +19,8 @@ class App extends Component {
                         <h2>hola a react</h2>
                     </div>
 
+
+                    <FormProducts/>
                     <Products/>
 
                 </Fragment>

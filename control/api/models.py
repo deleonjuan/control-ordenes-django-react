@@ -60,8 +60,7 @@ class Seller(AbstractBaseUser):
 
 
 class Product(models.Model):
-    # seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='product_seller')
-    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='products') 
+    seller = models.ForeignKey(Seller, on_delete=models.CASCADE, null=False, blank=False) 
     name = models.CharField(max_length=60)
     description = models.TextField()
     price = models.IntegerField()

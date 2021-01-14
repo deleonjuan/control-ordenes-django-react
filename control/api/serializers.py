@@ -14,7 +14,7 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     # seller = SellerSerializer(required=False)
     class Meta:
         model = Product
-        fields = '__all__'#('id', 'name', 'description', 'price', 'category')
+        fields = ('id', 'name', 'description', 'price', 'category', 'seller')
 
 class SaleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
