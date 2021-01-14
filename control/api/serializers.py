@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import Seller, Product, Sale
+from .models import Product, Sale
 from django.contrib.auth.models import User
 
-class SellerSerializer(serializers.HyperlinkedModelSerializer):
-    # products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
-    # owner = serializers.ReadOnlyField(source='owner.username')
+# class SellerSerializer(serializers.HyperlinkedModelSerializer):
+#     # products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
+#     # owner = serializers.ReadOnlyField(source='owner.username')
 
-    class Meta:
-        model = Seller
-        fields = '__all__'#('name', 'username')
+#     class Meta:
+#         model = Seller
+#         fields = '__all__'#('name', 'username')
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     # seller = SellerSerializer(required=False)
