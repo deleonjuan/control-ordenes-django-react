@@ -10,13 +10,13 @@ from django.contrib.auth.models import User
 #         model = Seller
 #         fields = '__all__'#('name', 'username')
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     # seller = SellerSerializer(required=False)
     class Meta:
         model = Product
         fields = ('id', 'name', 'description', 'price', 'category', 'seller')
 
-class SaleSerializer(serializers.HyperlinkedModelSerializer):
+class SaleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sale
         fields = '__all__'

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { tokenConfig } from './auth'
 
 // types
 const GET_PRODUCTS = "GET_PRODUCTS"
@@ -33,9 +34,9 @@ export default function (state = initialState, action) {
 }
 
 //actions
-export const GetProducts = () => dispatch => {
+export const GetProducts = () => (dispatch, getState) => {
     axios
-        .get('/api/products/')
+        .get('/api/products/', tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_PRODUCTS,
@@ -45,9 +46,9 @@ export const GetProducts = () => dispatch => {
         .catch(err => console.log(err))
 }
 
-export const DeleteProduct = (id) => dispatch => {
+export const DeleteProduct = (id) => (dispatch, getState) => {
     axios
-        .delete(`/api/products/${id}/`)
+        .delete(`/api/products/${id}/`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: DELETE_PRODUCT,
@@ -57,9 +58,9 @@ export const DeleteProduct = (id) => dispatch => {
         .catch(err => console.log(err))
 }
 
-export const AddProduct = (product) => dispatch => {
+export const AddProduct = (product) => (dispatch, getState) => {
     axios
-        .post(`/api/products/`, product)
+        .post(`/api/products/`, product, tokenConfig(getState))
         .then(res => {
             console.log(res.data);
             dispatch({

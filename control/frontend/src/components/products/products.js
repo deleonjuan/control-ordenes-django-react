@@ -1,4 +1,4 @@
-import React, { Component, component, useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { GetProducts, DeleteProduct } from '../../reducers/products'

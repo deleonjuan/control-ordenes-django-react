@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { logout } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { onLogout } from '../../reducers/auth';
 
 export class Header extends Component {
-  // static propTypes = {
-  //   auth: PropTypes.object.isRequired,
-  //   logout: PropTypes.func.isRequired,
-  // };
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    onLogout: PropTypes.func.isRequired,
+  };
 
   render() {
-    // const { isAuthenticated, user } = this.props.auth;
+    const { isLogin, user } = this.props.auth;
 
-    // const authLinks = (
-    //   <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-    //     <span className="navbar-text mr-3">
-    //       <strong>{user ? `Welcome ${user.username}` : ''}</strong>
-    //     </span>
-    //     <li className="nav-item">
-    //       <button onClick={this.props.logout} className="nav-link btn btn-info btn-sm text-light">
-    //         Logout
-    //       </button>
-    //     </li>
-    //   </ul>
-    // );
+    const SessionLinks = (
+      <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+        <span className="navbar-text mr-3">
+          <strong>{user ? `${user.username}` : ''}</strong>
+        </span>
+        <li className="nav-item">
+          <button onClick={this.props.onLogout} className="nav-link btn btn-info btn-sm text-light">
+            Salir
+          </button>
+        </li>
+      </ul>
+    );
 
     const NoSessionButtons = (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -60,18 +60,16 @@ export class Header extends Component {
               Cian Coders
             </a>
           </div>
-          {/* {isAuthenticated ? authLinks : guestLinks} */}
-          {
-            NoSessionButtons
-          }
+          {isLogin ? SessionLinks : NoSessionButtons}
+        
         </div>
       </nav>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default Header//connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { onLogout })(Header);

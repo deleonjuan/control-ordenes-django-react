@@ -20,7 +20,7 @@ class FormProducts extends Component {
 
     onSubmit = e => {
         const { name, price, description, category } = this.state
-        const product = { seller:"http://127.0.0.1:8000/api/sellers/1/", name, description, price, category}
+        const product = { name, description, price, category}
         this.props.AddProduct(product)
     }
 
