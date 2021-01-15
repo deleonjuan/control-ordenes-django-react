@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
@@ -9,8 +8,8 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
     render={(props) => {
       if (auth.isLoading) {
         return <h2>Cargando...</h2>;
-      } else if (!auth.isLogin) {
-        return <Redirect to="/login" />;
+      } else if (auth.token === null) {
+        return <Redirect to="/home" />;
       } else {
         return <Component {...props} />;
       }

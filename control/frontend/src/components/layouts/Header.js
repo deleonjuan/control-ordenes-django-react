@@ -4,22 +4,38 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { onLogout } from '../../reducers/auth';
 
+function refreshPage() {
+  window.location.reload();
+}
+
 export class Header extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     onLogout: PropTypes.func.isRequired,
   };
 
+
+  _onLogout = e => {
+    this.props.onLogout()
+    // window.location.href = window.location.href;
+    window.location.replace('');
+    // refreshPage()
+  }
+
   render() {
     const { isLogin, user } = this.props.auth;
 
     const SessionLinks = (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-        <span className="navbar-text mr-3">
-          <strong>{user ? `${user.username}` : ''}</strong>
-        </span>
         <li className="nav-item">
-          <button onClick={this.props.onLogout} className="nav-link btn btn-info btn-sm text-light">
+          <strong>
+            <Link to="/" className="nav-link">
+              {user ? `${user.username}` : ''}
+            </Link>
+          </strong>
+        </li>
+        <li className="nav-item">
+          <button onClick={this._onLogout} className="nav-link btn btn-info btn-sm text-light">
             Salir
           </button>
         </li>
@@ -56,12 +72,12 @@ export class Header extends Component {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/#/home">
               Cian Coders
             </a>
           </div>
           {isLogin ? SessionLinks : NoSessionButtons}
-        
+
         </div>
       </nav>
     );

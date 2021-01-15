@@ -9,7 +9,7 @@ const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 //reducer
 const initialState = {
     token: localStorage.getItem('token'),
-    isLogin: null,
+    isLogin: false,
     isLoading: false,
     user: null
 }

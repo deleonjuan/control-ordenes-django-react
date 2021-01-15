@@ -8,6 +8,7 @@ import FormProducts from './products/form'
 import Login from './auth/Login'
 import Register from './auth/Register'
 import PrivateRoute from './commons/PrivateRoute'
+import Dashboard from '../components/dashboard/dashboard'
 
 import { Provider } from 'react-redux'
 import store from '../store'
@@ -42,6 +43,10 @@ class App extends Component {
                                     exact
                                     path='/'
                                     component={productosDashboard} />
+                                <Route
+                                    exact
+                                    path='/home'
+                                    component={Dashboard} />
                                 <Route
                                     exact
                                     path='/login'

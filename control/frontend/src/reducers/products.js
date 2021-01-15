@@ -3,12 +3,14 @@ import { tokenConfig } from './auth'
 
 // types
 const GET_PRODUCTS = "GET_PRODUCTS"
+const GET_PRODUCTS_ANNONIMOUS = "GET_PRODUCTS_ANNONIMOUS"
 const DELETE_PRODUCT = "DELETE_PRODUCT"
 const ADD_PRODUCT = "ADD_PRODUCT"
 
 //reducer
 const initialState = {
-    products: []
+    products: [],
+    myproducts: []
 }
 
 export default function (state = initialState, action) {
@@ -16,17 +18,22 @@ export default function (state = initialState, action) {
         case GET_PRODUCTS:
             return {
                 ...state,
+                myproducts: action.payload
+            }
+        case GET_PRODUCTS_ANNONIMOUS:
+            return {
+                ...state,
                 products: action.payload
             }
         case DELETE_PRODUCT:
             return {
                 ...state,
-                products: state.products.filter(e => e.id !== action.payload)
+                myproducts: state.myproducts.filter(e => e.id !== action.payload)
             }
         case ADD_PRODUCT:
             return {
                 ...state,
-                products: [...state.products, state.payload]
+                myproducts: [...state.myproducts, state.payload]
             }
         default:
             return state
@@ -62,9 +69,21 @@ export const AddProduct = (product) => (dispatch, getState) => {
     axios
         .post(`/api/products/`, product, tokenConfig(getState))
         .then(res => {
-            console.log(res.data);
             dispatch({
                 type: ADD_PRODUCT,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+export const GetProductsAnnonimous = () => (dispatch) => {
+
+    axios
+        .get('/api/allproducts')
+        .then(res => {
+            dispatch({
+                type: GET_PRODUCTS_ANNONIMOUS,
                 payload: res.data
             })
         })

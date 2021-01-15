@@ -6,7 +6,7 @@ import { GetProducts, DeleteProduct } from '../../reducers/products'
 export class Products extends Component {
 
     static propTypes = {
-        products: propTypes.array.isRequired,
+        myproducts: propTypes.array.isRequired,
         GetProducts: propTypes.func.isRequired,
         DeleteProduct: propTypes.func.isRequired
     }
@@ -18,7 +18,7 @@ export class Products extends Component {
     render() {
         return (
             <div>
-                <h1>Lista de productos</h1>
+                <h1>Mis Productos</h1>
 
                 <table className="table table-striped">
 
@@ -27,13 +27,13 @@ export class Products extends Component {
                             <th>ID</th>
                             <th>Producto</th>
                             <th>Precio</th>
-                            <th>Descripcio</th>
+                            <th>Descripcion</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            this.props.products.map(product => (
+                            this.props.myproducts.map(product => (
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
                                     <td>{product.name}</td>
@@ -60,7 +60,7 @@ export class Products extends Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.products.products
+    myproducts: state.products.myproducts
 })
 
 export default connect(mapStateToProps, { GetProducts, DeleteProduct })(Products)
