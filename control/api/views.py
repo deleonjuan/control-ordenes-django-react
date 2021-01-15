@@ -31,5 +31,17 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class SaleViewSet(viewsets.ModelViewSet):
-    queryset = Sale.objects.all()
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
     serializer_class = SaleSerializer
+
+    def get_queryset(self):
+        return self.request.user.sales.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    # queryset = Sale.objects.all()

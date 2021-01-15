@@ -15,6 +15,8 @@ class Product(models.Model):
         return self.name
 
 class Sale(models.Model):
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sale_seller')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sales', null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sale_product')
-    # created_date = models.DateTimeField(default=timezone.now)
+    quantity = models.IntegerField(null=True)
+    total = models.IntegerField(null=True)
+    created_date = models.DateTimeField(default=timezone.now)

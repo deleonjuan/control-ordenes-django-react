@@ -2,30 +2,35 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { GetProductsAnnonimous } from '../../reducers/products'
+import { AddSale } from '../../reducers/sales'
 
 class Dashboard extends Component {
-
-    state = {
-        isLogin: false
-    }
 
     static propTypes = {
         products: propTypes.array.isRequired,
         auth: propTypes.object.isRequired,
         GetProductsAnnonimous: propTypes.func.isRequired,
+        AddSale: propTypes.func.isRequired
     }
 
     componentDidMount() {
         this.props.GetProductsAnnonimous()
-        if (this.props.auth.token !== null) this.setState({ isLogin: true })
     }
 
     onBuy = e => {
         console.log(`${e.name} comprado`);
+        const sale = {
+            seller: e.seller,
+            product: e.id,
+            total: e.price,
+            quantity: 1
+        }
+
+        this.props.AddSale(sale)
     }
 
     render() {
-        const { isLogin } = this.state
+        const { user, isLogin } = this.props.auth;
         return (
             <div>
                 <h1>Lista de productos</h1>
@@ -51,14 +56,22 @@ class Dashboard extends Component {
                                     <td>{product.name}</td>
                                     <td>{product.price}</td>
                                     <td>{product.description}</td>
-                                    { isLogin &&
-                                        <td>
-                                            <button
-                                                onClick={() => this.onBuy(product)}
-                                                className="btn btn-primary btn-sm">
-                                                Comprar
+                                    { isLogin && (
+                                        product.seller !== user.id ?
+                                            (
+                                                <td>
+                                                    <button
+                                                        onClick={() => this.onBuy(product)}
+                                                        className="btn btn-primary btn-sm">
+                                                        Comprar
                                         </button>
-                                        </td>
+                                                </td>
+                                            ) : (
+                                                <td>
+                                                    <strong>Este producto es mio</strong>
+                                                </td>
+                                            )
+                                    )
                                     }
                                 </tr>
                             ))
@@ -75,4 +88,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
 })
 
-export default connect(mapStateToProps, { GetProductsAnnonimous })(Dashboard)
+export default connect(mapStateToProps, { GetProductsAnnonimous, AddSale })(Dashboard)
