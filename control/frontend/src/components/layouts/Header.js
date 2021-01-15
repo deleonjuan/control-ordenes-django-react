@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 // import { logout } from '../../actions/auth';
 
 export class Header extends Component {
-//   static propTypes = {
-//     auth: PropTypes.object.isRequired,
-//     logout: PropTypes.func.isRequired,
-//   };
+  // static propTypes = {
+  //   auth: PropTypes.object.isRequired,
+  //   logout: PropTypes.func.isRequired,
+  // };
 
   render() {
     // const { isAuthenticated, user } = this.props.auth;
@@ -26,20 +26,20 @@ export class Header extends Component {
     //   </ul>
     // );
 
-    // const guestLinks = (
-    //   <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-    //     <li className="nav-item">
-    //       <Link to="/register" className="nav-link">
-    //         Register
-    //       </Link>
-    //     </li>
-    //     <li className="nav-item">
-    //       <Link to="/login" className="nav-link">
-    //         Login
-    //       </Link>
-    //     </li>
-    //   </ul>
-    // );
+    const NoSessionButtons = (
+      <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Registrarse
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/login" className="nav-link">
+            Ingresar
+          </Link>
+        </li>
+      </ul>
+    );
 
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -61,6 +61,9 @@ export class Header extends Component {
             </a>
           </div>
           {/* {isAuthenticated ? authLinks : guestLinks} */}
+          {
+            NoSessionButtons
+          }
         </div>
       </nav>
     );
