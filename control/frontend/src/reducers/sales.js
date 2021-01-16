@@ -46,7 +46,6 @@ export const AddSale = (sale) => (dispatch, getState) => {
     axios
         .post(`/api/sales/`, sale, tokenConfig(getState))
         .then(res => {
-            console.log(res.data);
             dispatch({
                 type: ADD_SALES,
                 payload: res.data

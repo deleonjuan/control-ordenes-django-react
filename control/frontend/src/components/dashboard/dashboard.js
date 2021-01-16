@@ -6,6 +6,10 @@ import { AddSale } from '../../reducers/sales'
 
 class Dashboard extends Component {
 
+    state = {
+        productToBuy: null
+    }
+
     static propTypes = {
         products: propTypes.array.isRequired,
         auth: propTypes.object.isRequired,
@@ -14,19 +18,20 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        if(this.props.products.length < 1) this.props.GetProductsAnnonimous()
+        if (this.props.products.length < 1) this.props.GetProductsAnnonimous()
     }
 
-    onBuy = e => {
-        console.log(`${e.name} comprado`);
+    onBuy = () => {
+        const { productToBuy } = this.state
         const sale = {
-            seller: e.seller,
-            product: e.id,
-            total: e.price,
+            seller: productToBuy.seller,
+            product: productToBuy.id,
+            total: productToBuy.price,
             quantity: 1
         }
 
         this.props.AddSale(sale)
+        alert("Producto comprado exitosamente")
     }
 
     render() {
@@ -61,10 +66,12 @@ class Dashboard extends Component {
                                             (
                                                 <td>
                                                     <button
-                                                        onClick={() => this.onBuy(product)}
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#ModalConfirm"
+                                                        onClick={() => this.setState({ productToBuy: product })}
                                                         className="btn btn-primary btn-sm">
                                                         Comprar
-                                        </button>
+                                                    </button>
                                                 </td>
                                             ) : (
                                                 <td>
@@ -78,6 +85,25 @@ class Dashboard extends Component {
                         }
                     </tbody>
                 </table>
+
+                <div className="modal fade" id="ModalConfirm" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Comprar</h5>
+                            </div>
+                            <div className="modal-body">
+                                Esta seguro de comprar este articulo
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={this.onBuy}>Si, Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         )
     }

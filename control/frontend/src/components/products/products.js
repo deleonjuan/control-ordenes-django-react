@@ -7,7 +7,8 @@ import FormProducts from './form'
 export class Products extends Component {
 
     state = {
-        forEdit: null
+        forEdit: null,
+        forDelete: null
     }
 
     static propTypes = {
@@ -37,6 +38,12 @@ export class Products extends Component {
                 <label>Q{recolectado} recolectados</label>
             </div>
         )
+    }
+
+    onDeleteProduct = () => {
+        const { forDelete } = this.state
+        // this.props.DeleteProduct.bind(this, forDelete)
+        this.props.DeleteProduct(forDelete)
     }
 
     render() {
@@ -70,12 +77,15 @@ export class Products extends Component {
                                     <td>{this._getStats(product.id)}</td>
                                     <td>
                                         <button
-                                            onClick={this.props.DeleteProduct.bind(this, product.id)}
+                                            // onClick={this.props.DeleteProduct.bind(this, product.id)}
+                                            onClick={() => this.setState({ forDelete: product.id })}
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#ModalDelete"
                                             className="btn btn-danger btn-sm">
                                             Eliminar
                                         </button>
                                         <button
-                                            data-bs-toggle="modal" 
+                                            data-bs-toggle="modal"
                                             data-bs-target="#exampleModal"
                                             onClick={() => this.setState({ forEdit: product })}
                                             className="btn btn-warning btn-sm ml-1">
@@ -94,7 +104,7 @@ export class Products extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">{ this.state.forEdit === null ? "Nuevo" : "Editar" }</h5>
+                                <h5 className="modal-title" id="exampleModalLabel">{this.state.forEdit === null ? "Nuevo" : "Editar"}</h5>
                             </div>
                             <div className="modal-body">
                                 <FormProducts product={this.state.forEdit} />
@@ -105,6 +115,24 @@ export class Products extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div className="modal fade" id="ModalDelete" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Comprar</h5>
+                            </div>
+                            <div className="modal-body">
+                                Esta seguro de eliminar este articulo
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={this.onDeleteProduct}>Si, Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         )
     }

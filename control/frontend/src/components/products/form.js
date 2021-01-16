@@ -38,7 +38,7 @@ class FormProducts extends Component {
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = e => {
-        e.preventDefault()
+        // e.preventDefault()
         const { name, price, description, category } = this.state
         const product = { name, description, price, category }
 
