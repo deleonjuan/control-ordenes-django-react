@@ -6,10 +6,15 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
-djangorestframework = "*"
-django-rest-knox = "*"
-psycopg2 = "*"
+django = "3.1.5"
+djangorestframework = "3.12.2"
+django-rest-knox = "4.1.0"
+psycopg2 = "2.8.6"
+dj-database-url = "0.5.0"
+unicorn = "1.0.2"
+whitenoise = "5.2.0"
+httpie = "2.3.0"
+python-decouple = "3.4"
 
 [requires]
 python_version = "3.8"
