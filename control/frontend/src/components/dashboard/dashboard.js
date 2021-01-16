@@ -14,7 +14,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.props.GetProductsAnnonimous()
+        if(this.props.products.length < 1) this.props.GetProductsAnnonimous()
     }
 
     onBuy = e => {

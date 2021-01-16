@@ -77,6 +77,15 @@ export const AddProduct = (product) => (dispatch, getState) => {
         .catch(err => console.log(err))
 }
 
+export const UpdateProduct = (product, id) => (dispatch, getState) => {
+    axios
+        .put(`api/products/${id}/`, product, tokenConfig(getState))
+        .then(res => {
+            window.location.reload()
+        })
+        .catch(err => console.log(err))
+}
+
 export const GetProductsAnnonimous = () => (dispatch) => {
 
     axios

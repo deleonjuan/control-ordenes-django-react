@@ -12,7 +12,6 @@ class AllProductViewSet(generics.ListAPIView):
 class AllProductFromUser(generics.ListAPIView):
     serializer_class = ProductSerializer
     def get_queryset(self):
-        # id_user = self.kwargs['id']
         id_user = self.request.query_params.get('id', None)
         return Product.objects.filter(seller=id_user)
 
@@ -28,6 +27,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
+
+    def post_save(self, serializer):
+        instance = serializer.save()
+        self.post_save(instance)
 
 
 class SaleViewSet(viewsets.ModelViewSet):

@@ -17,9 +17,7 @@ export class Header extends Component {
 
   _onLogout = e => {
     this.props.onLogout()
-    // window.location.href = window.location.href;
     window.location.replace('');
-    // refreshPage()
   }
 
   render() {
@@ -75,6 +73,23 @@ export class Header extends Component {
             <a className="navbar-brand" href="/#/home">
               Cian Coders
             </a>
+
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link to="/home" className="nav-link">
+                  Inicio
+                </Link>
+              </li>
+              <li>
+                {isLogin &&
+                  <Link to="/" className="nav-link">
+                    Mis productos
+                </Link>
+                }
+              </li>
+            </ul>
+
+
           </div>
           {isLogin ? SessionLinks : NoSessionButtons}
 

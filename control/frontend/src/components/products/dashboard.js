@@ -2,15 +2,13 @@ import React, { Component, Fragment } from 'react';
 
 import Sales from './sales'
 import Products from './products'
-import FormProducts from './form'
 
 const productosDashboard = props => {
     return (
-        <>
+        <div className="mt-4">
             <Sales/>
-            {/* <FormProducts /> */}
-            <Products />
-        </>
+            <Products/>
+        </div>
     )
 }
 

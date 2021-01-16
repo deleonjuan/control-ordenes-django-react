@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { GetSales } from '../../reducers/sales'
-import products from '../../reducers/products'
 
 class Sales extends Component {
 
@@ -13,17 +12,16 @@ class Sales extends Component {
     }
 
     componentDidMount() {
-        this.props.GetSales()
+        if(this.props.sales.length < 1) this.props.GetSales()
 
     }
 
     _calculateEarnings() {
         let ganancias = 0
-
-            this.props.sales.map(e => {
-                ganancias += sales.total
-            })
         
+        this.props.sales.map(e => {
+            ganancias += e.total
+        })
         return ganancias
     }
 
@@ -42,12 +40,12 @@ class Sales extends Component {
 
     render() {
         return (
-            <>
+            <div className="card py-2 px-4 mb-4">
                 <h1>Ventas</h1>
                 <h3>Total ventas: {this.props.sales.length}</h3>
                 <h3>Dinero ganado: Q{this._calculateEarnings()}</h3>
                 <h3>Promedio de precios: Q{this._promedioPrecios()}</h3>
-            </>
+            </div>
         )
     }
 }
