@@ -7,3 +7,6 @@ admin.site.register(Product)
 admin.site.register(Sale)
 
 #comentario aleatorio
+
+# comment
+# comment
